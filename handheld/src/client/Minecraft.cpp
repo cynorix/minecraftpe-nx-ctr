@@ -755,7 +755,7 @@ void Minecraft::tickInput() {
 			// PATCH:
 			// make controls nicer - Li
 
-			#if defined(__VITA__) || defined(_WIN32) || defined(__SWITCH__)
+			#if defined(__VITA__) || defined(_WIN32) || defined(__SWITCH__) || defined(__3DS__)
 				if(true) { //TODO: only do this if the world is loaded ..
 
 					if (key == Keyboard::KEY_E) {
@@ -910,7 +910,7 @@ void Minecraft::tickInput() {
 				}
 			#endif
 
-			#ifndef __VITA__ // this is handled earlier ..
+			#if !defined(__VITA__) && !defined(__3DS__) // this is handled earlier ..
 			#ifndef RPI
 #ifdef __NDS__
 #else
@@ -984,7 +984,7 @@ void Minecraft::tickInput() {
 	handleMouseDown(MouseAction::ACTION_LEFT, isTryingToDestroyBlock);
 	handleMouseClick(buildHandled && bai.isInteract()
 		|| options.useMouseForDigging && Mouse::isButtonDown(MouseAction::ACTION_RIGHT));
-#elif __VITA__ || defined(__SWITCH__)
+#elif __VITA__ || defined(__SWITCH__) || defined(__3DS__)
 	// can someone explain why ??!!! is interact is dig??
 	handleMouseDown(MouseAction::ACTION_LEFT, isTryingToDestroyBlock && buildHandled);
 #else
@@ -1010,7 +1010,7 @@ void Minecraft::handleMouseDown(int button, bool down) {
 #ifndef STANDALONE_SERVER
 #ifndef RPI
 	if(player->isUsingItem()) {
-#if defined(__VITA__) || defined(_WIN32) || defined(__SWITCH__) // honestly this seems like just a genuine bug in the game tbh
+#if defined(__VITA__) || defined(_WIN32) || defined(__SWITCH__) || defined(__3DS__) // honestly this seems like just a genuine bug in the game tbh
 		if(!down && !Keyboard::isKeyDown(options.keyUse.key) && !Mouse::isButtonDown(MouseAction::ACTION_RIGHT)) {
 #else
 #ifdef __NDS__
@@ -1475,7 +1475,7 @@ void Minecraft::_levelGenerated()
 		netCallback->levelGenerated(level);
 	}
 
-#if defined(WIN32) || defined(RPI) || defined(__VITA__) || defined(__SWITCH__)
+#if defined(WIN32) || defined(RPI) || defined(__VITA__) || defined(__SWITCH__) || defined(__3DS__)
 	if (_commandServer) {
 		delete _commandServer;
 	}

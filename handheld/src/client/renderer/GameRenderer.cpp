@@ -545,11 +545,8 @@ void GameRenderer::setupFog(int i) {
     glColor4f2(1, 1, 1, 1);
 
     if (player->isUnderLiquid(Material::water)) {
-#ifndef __3DS__
-    	glFogx(GL_FOG_MODE, GL_EXP);
-#else
     	glFogf(GL_FOG_MODE, GL_EXP);
-#endif
+
     	glFogf(GL_FOG_DENSITY, 0.1f); // was 0.06
 
 //        float rr = 0.4f;
@@ -566,11 +563,8 @@ void GameRenderer::setupFog(int i) {
 //            bb = bbb;
 //        }
     } else if (player->isUnderLiquid(Material::lava)) {
-#ifndef __3DS__
-    	glFogx(GL_FOG_MODE, GL_EXP);
-#else
     	glFogf(GL_FOG_MODE, GL_EXP);
-#endif
+
         glFogf(GL_FOG_DENSITY, 2.f); // was 0.06
 //        float rr = 0.4f;
 //        float gg = 0.3f;
@@ -586,11 +580,8 @@ void GameRenderer::setupFog(int i) {
 //            bb = bbb;
 //        }
     } else {
-#ifndef __3DS__
-    	glFogx(GL_FOG_MODE, GL_LINEAR);
-#else
     	glFogf(GL_FOG_MODE, GL_LINEAR);
-#endif
+
         glFogf(GL_FOG_START, renderDistance * 0.6f);
         glFogf(GL_FOG_END, renderDistance);
         if (i < 0) {

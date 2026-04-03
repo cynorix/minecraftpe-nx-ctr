@@ -75,9 +75,8 @@ void PerfRenderer::renderFpsMeter( float tickTime )
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity2();
 	glTranslatef2(0, 0, -2000);
-#ifndef __3DS__
 	glLineWidth(1);
-#endif
+
 	glDisable2(GL_TEXTURE_2D);
 	Tesselator& t = Tesselator::instance;
 

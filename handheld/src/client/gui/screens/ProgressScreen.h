@@ -10,7 +10,7 @@ public:
 
 	void render(int xm, int ym, float a);
 	bool isInGameScreen();
-#if defined(__VITA__) || defined(__SWITCH__)
+#if defined(__VITA__) || defined(__SWITCH__) || defined(__3DS__)
 	void keyPressed(int eventKey);
 #endif
 
