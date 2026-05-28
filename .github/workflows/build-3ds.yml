@@ -16,6 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install 3DS portlibs
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends devkitpro-3ds-libs
+
       - name: Create build directory
         run: mkdir -p build
 
