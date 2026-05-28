@@ -1,0 +1,39 @@
+name: Build for 3DS
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-3ds:
+    runs-on: ubuntu-latest
+    container:
+      image: devkitpro/devkitarm:latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create build directory
+        run: mkdir -p build
+
+      - name: Configure CMake for 3DS
+        run: |
+          cmake -DPUBLISH=on \
+                 -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/3DS.cmake \
+                 -B build \
+                 -S handheld/project/ctr
+        env:
+          DEVKITPRO: /opt/devkitpro
+
+      - name: Build for 3DS
+        run: cd build && make -j$(nproc)
+
+      - name: Upload 3DS build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: minecraftpe-3ds
+          path: build/minecraftcpp.3dsx
+          if-no-files-found: warn
